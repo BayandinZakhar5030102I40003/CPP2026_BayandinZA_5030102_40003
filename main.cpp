@@ -15,6 +15,8 @@ class Solution {
 
   Solution(int count = 0, double r1 = 0, double r2 = 0)
       : rootsCount(count), x1(r1), x2(r2) {}
+
+  ~Solution() {}
 };
 
 class Equation {
@@ -22,11 +24,15 @@ class Equation {
   double a, b, c;
 
   Equation(double a, double b, double c) : a(a), b(b), c(c) {}
+  ~Equation() {}
+
   Solution solve() const {
     double D = b * b - 4 * a * c;
 
     if (a == 0) {
-      if (b == 0) return Solution(0);
+      if (b == 0) {
+        return Solution(0);
+      }
       double x = -c / b;
       return Solution(1, x, x);
     }
@@ -48,7 +54,7 @@ class Student {
   std::string name;
 
  public:
-  Student(std::string name) : name(name) {}
+  Student(std::string stud_n) : name(stud_n) {}
   virtual Solution solve(const Equation& ans) = 0;
 
   std::string getName() const { return name; }
@@ -69,7 +75,7 @@ class Mid_S : public Student {
 
   Solution solve(const Equation& ans) override {
     double chance = (double)std::rand() / RAND_MAX;
-    if (chance < 0.5) {
+    if (chance <= 0.5) {
       return ans.solve();
     } else {
       return Solution(1, std::rand() % 10, std::rand() % 10);
@@ -92,6 +98,8 @@ class Letter {
 
   Letter(std::string name, Equation fnc, Solution ans)
       : studName(name), func(fnc), answer(ans) {}
+
+  ~Letter() {}
 };
 
 class Teacher {
@@ -99,7 +107,7 @@ class Teacher {
   std::vector<Letter> queue;
   std::map<std::string, int> results;
 
-  bool isCorrect(const Solution& correct, const Solution& student) {
+  bool Correct(const Solution& correct, const Solution& student) {
     const double EPS = 1e-6;
 
     if (correct.rootsCount != student.rootsCount) return false;
@@ -117,6 +125,7 @@ class Teacher {
   }
 
  public:
+  Teacher() {}
   void addSubmission(const Letter& sub) { queue.push_back(sub); }
 
   void checkAll() {
@@ -127,7 +136,7 @@ class Teacher {
     for (const auto& sub : queue) {
       Solution correct = sub.func.solve();
 
-      if (isCorrect(correct, sub.answer)) {
+      if (Correct(correct, sub.answer)) {
         results[sub.studName]++;
       }
     }
@@ -138,6 +147,18 @@ class Teacher {
       std::cout << p.first << " - " << p.second << std::endl;
     }
   }
+
+  void saveResultsToCSV(const std::string& filename) {
+    std::ofstream file(filename);
+    if (file.is_open()) {
+      for (const auto& p : results) {
+        file << p.first << ";" << p.second << "\n";
+      }
+      file.close();
+    } else {
+    }
+  }
+  ~Teacher() {}
 };
 
 int main() {
@@ -158,9 +179,15 @@ int main() {
   file.close();
 
   std::vector<Student*> students = {
-      new Mid_S("Sergey"), new Good_S("Anton"), new Mid_S("Petr"),
-      new Bad_S("Sasha"),  new Mid_S("Timur"),  new Mid_S("Timofei"),
-      new Bad_S("Zakhar"), new Mid_S("Roman"),  new Good_S("Rafael Ambrosius Kusto"),
+      new Mid_S("Sergey"),
+      new Good_S("Anton"),
+      new Mid_S("Petr"),
+      new Bad_S("Sasha"),
+      new Mid_S("Timur"),
+      new Mid_S("Timofei"),
+      new Bad_S("Zakhar"),
+      new Mid_S("Roman"),
+      new Good_S("Rafael Ambrosius Kusto"),
   };
 
   Teacher teacher;
@@ -174,6 +201,7 @@ int main() {
 
   teacher.checkAll();
   teacher.printResults();
+  teacher.saveResultsToCSV("results.csv");
 
   for (auto s : students) {
     delete s;
