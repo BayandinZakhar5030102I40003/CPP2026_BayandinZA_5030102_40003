@@ -128,6 +128,9 @@
   <ItemGroup>
     <Text Include="equations.txt" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="results.csv" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
