@@ -3,7 +3,7 @@
 
 class MiddleStudent : public Student {
  public:
-  MiddleStudent(std::string name) : Student(name) {}
+  MiddleStudent(const std::string& name) : Student(name) {}
 
   Solution solve(const Equation& ans) override;
 };
