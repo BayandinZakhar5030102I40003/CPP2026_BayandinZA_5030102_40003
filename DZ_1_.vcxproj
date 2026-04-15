@@ -123,7 +123,12 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="bad_student.cpp" />
+    <ClCompile Include="equation.cpp" />
+    <ClCompile Include="good_student.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="middle_student.cpp" />
+    <ClCompile Include="teacher.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="equations.txt" />
@@ -132,7 +137,14 @@
     <None Include="results.csv" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Solution.h" />
+    <ClInclude Include="bad_student.h" />
+    <ClInclude Include="equation.h" />
+    <ClInclude Include="good_student.h" />
+    <ClInclude Include="letter.h" />
+    <ClInclude Include="middle_student.h" />
+    <ClInclude Include="solution.h" />
+    <ClInclude Include="student.h" />
+    <ClInclude Include="teacher.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -1,5 +1,4 @@
-#ifndef SOLUTION_H
-#define SOLUTION_H
+#pragma once
 
 class Solution {
  public:
@@ -11,5 +10,3 @@ class Solution {
 
   ~Solution() {}
 };
-
-#endif
