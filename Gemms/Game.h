@@ -17,7 +17,7 @@ class GemsGame {
   bool isBonus(GemType type);
   int cntBonus();
   void initGrid();
-  void spavnBonus(int x, GemType ñolor);
+  void spavnBonus(int x, GemType color);
   void applyRepaintBonus(int cntrY, int cntrX);
   void applyBonus(int cntrY, int cntrX);
   bool checkMatches(bool remove = false);
